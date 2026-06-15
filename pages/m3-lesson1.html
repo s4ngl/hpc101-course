@@ -1,0 +1,193 @@
+<div
+  id="dp-wrapper"
+  class="dp-wrapper"
+  data-header-class="dp-header dp-colored-headings variation-2"
+  data-nav-class="container-fluid dp-link-grid dp-link-grid-circle-right variation-2"
+  data-img-url="https://designtools.ciditools.com/css/images/banner_desert_sky.png"
+>
+  <!-- Shared design tokens: no border-radius anywhere; consistent card outline. -->
+  <style>
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card,
+    #dp-wrapper .btn,
+    #dp-wrapper .nav-link,
+    #dp-wrapper .dp-embed-wrapper iframe,
+    #dp-wrapper .dp-fc,
+    #dp-wrapper img { border-radius: 0 !important; }
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card { border: 1px solid rgba(0, 0, 0, 0.175); }
+    /* Flashcard set: drop DP's own background so the light-blue wrapper shows through. */
+    #dp-wrapper .dp-fcs,
+    #dp-wrapper div[id^="dpFlashcardSet"] { background: transparent !important; background-color: transparent !important; }
+    /* Hide the (empty) auto-generated flashcard instructions line. */
+    #dp-wrapper .dp-fcs-instructions { display: none !important; }
+    /* DP's focus ring is dark red; use IU blue instead. */
+    #dp-wrapper .nav-link:focus,
+    #dp-wrapper .dp-panel-toggler:focus,
+    #dp-wrapper .btn:focus { outline-color: #006298 !important; }
+  </style>
+
+  <!-- ============================ HEADER (flat blue, race-car overlay bottom-right) ============================ -->
+  <header
+    class="dp-header dp-colored-headings variation-2 dp-bg text-start cp-bg-dp-secondary dp-bg-image dp-wcag-aaa text-light"
+    style="
+      padding: 40px 40px 44px;
+      min-height: 180px;
+      background: url('https://iu.instructure.com/courses/2395204/files/206356385/download?download_frd=1') right bottom / auto 70% no-repeat, #006298;
+    "
+  >
+    <img class="dp-bg-image-src" style="display: none" role="presentation" src="https://iu.instructure.com/courses/2395204/files/206356385/download?download_frd=1" alt="" loading="lazy" />
+    <h2 class="dp-heading text-start">
+      <span class="dp-header-pre text-start" style="background: none; font-size: 22px; padding-top: 0px; margin-left: 0px; padding-left: 0px">
+        <span class="dp-header-pre-1 text-start" style="color: #ffffff">Module 3</span> <span class="dp-header-pre-2">Lesson 1</span>
+      </span>
+      <span class="dp-header-title" style="color: #ffffff">Understanding File Systems</span>
+    </h2>
+  </header>
+
+  <!-- ============================ INTRODUCTION ============================ -->
+  <div
+    class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr"
+    style="margin-bottom: 35px; margin-top: 35px; padding-bottom: 8px; padding-top: 0px"
+  >
+    <div class="dp-column-container container-fluid">
+      <div class="row dp-padding-direction-tblr" style="padding-bottom: 8px; padding-top: 0px">
+        <div class="col-12 dp-padding-direction-tblr dp-specify" style="padding-top: 15px; padding-bottom: 15px" data-classes="col-12 dp-padding-direction-tblr">
+          <h3 class="dp-padding-direction-tblr dp-text-bold dp-margin-direction-tblr" style="padding-left: 0px; margin-left: 0px">
+            Linux Storage Concepts, Parallel File Systems, Quotas, and Archiving
+          </h3>
+          <p>
+            IU's HPC file systems build on standard Unix concepts (a tree-rooted directory structure, files represented as inodes, and data striped across
+            redundant drives) but at a scale that spans thousands of physical drives across distributed storage servers. IU runs two primary storage stacks:
+            IBM Storage Scale for home directories, and Lustre for the Slate family of file systems. Each is built for different access patterns, and using
+            the wrong one for a workload degrades performance for everyone on the cluster.
+          </p>
+          <p>
+            The slides below cover how these systems work, where different types of data belong, and how to archive completed work to the Scholarly Data Archive.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ SLIDES ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr" style="margin-top: 35px; margin-bottom: 35px">
+    <h3
+      class="dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dp-gray"
+      style="padding: 12px 20px; margin: 0 auto 2%; background: #343a40; color: #ffffff; text-align: center; font-size: 28px; line-height: 1.4"
+    >
+      <i class="dp-icon fas fa-desktop" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Lesson Slides
+    </h3>
+    <div class="dp-embed-wrapper" style="text-align: center; margin-top: 24px">
+      <iframe
+        title="Lesson slides"
+        src="https://hpc101-slides.pages.dev/module-3/set-1/1"
+        width="800"
+        height="500"
+        loading="lazy"
+        allowfullscreen="allowfullscreen"
+      ></iframe>
+    </div>
+    <!-- Collapsible transcript (accordion) — structure from the lesson/overview template -->
+    <div class="dp-panels-wrapper dp-accordion-default" style="max-width: 800px; margin: 24px auto auto">
+      <h4 class="dp-panel-heading dp-panels-built" id="dpPanelTranscript">
+        <a href="#dpPanelTranscript" role="button" class="dp-panel-toggler ," aria-controls="dpPanelTranscriptContent" aria-expanded="false"
+          ><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Transcript / Notes</a
+        >
+      </h4>
+      <div class="dp-panel-content" tabindex="0" id="dpPanelTranscriptContent" style="display: none" aria-labelledby="dpPanelTranscript" role="region">
+        <h4 aria-level="1">Transcript / Notes</h4>
+        <p>Paste the slide notes or transcript here.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================ FLASHCARDS ============================ -->
+  <div
+    class="dp-content-block cp-bg-dp-gray dp-bg dp-margin-direction-tblr"
+    style="margin-top: 35px; margin-bottom: 0px; padding: 0px; background: #cfe7f1"
+  >
+    <h3
+      class="dp-bg dp-text-bold dp-has-icon"
+      style="margin: 0px; padding: 12px 20px; background: #343a40; color: #ffffff; font-size: 28px; line-height: 1.4; text-align: center"
+    >
+      <i class="far fa-sticky-note" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Flashcards
+    </h3>
+    <div
+      class="dp-fcs dp-si-disable-submit dp-si-hide-timer dp-si-hide-solution"
+      data-interactive-id="dpFlashcardsM3L1"
+      data-interactive-type="Flashcards"
+      data-interactive-title="Flashcards 1"
+      style="padding: 28px 25px 4px"
+    >
+      <dl>
+        <dt><div class="dp-fc-front"><p>Inode</p></div></dt>
+        <dd><div class="dp-fc-back"><p>A data structure storing all file metadata (e.g. permissions, ownership, timestamps, and data block locations) but not the filename.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Why inodes don't store filenames</p></div></dt>
+        <dd><div class="dp-fc-back"><p>Filenames are stored in directory files as inode number mappings. This allows multiple names (hard links) to point to the same inode.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Hard link</p></div></dt>
+        <dd><div class="dp-fc-back"><p>A directory entry mapping a filename to an inode. Multiple hard links can reference the same file data.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>File deletion in Unix</p></div></dt>
+        <dd><div class="dp-fc-back"><p>Removes the directory entry pointing to the inode. When the link count reaches zero, storage is freed. Unix calls this "unlinking."</p></div></dd>
+        <dt><div class="dp-fc-front"><p>GPFS (IBM Storage Scale)</p></div></dt>
+        <dd><div class="dp-fc-back"><p>IBM's General Parallel File System. IU uses it for Geode home directories and Geode Project storage.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Lustre</p></div></dt>
+        <dd><div class="dp-fc-back"><p>An open-source parallel file system for high-throughput I/O across many clients. IU uses it for Slate, Slate Scratch, and Slate Project.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>RAID-6</p></div></dt>
+        <dd><div class="dp-fc-back"><p>A disk redundancy scheme using two independent parity sets distributed across drives. Tolerates up to two simultaneous drive failures.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>df -Th</p></div></dt>
+        <dd><div class="dp-fc-back"><p>Lists all mounted file systems with type, size, used space, available space, and mount point.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Why to avoid ls -l on Lustre</p></div></dt>
+        <dd><div class="dp-fc-back"><p>Triggers a metadata lookup per file. On Lustre, metadata is stored separately and can bottleneck under load, causing delays on large directories.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Scholarly Data Archive (SDA)</p></div></dt>
+        <dd><div class="dp-fc-back"><p>IU's long-term tape-and-disk archive based on HPSS. Holds ~79 petabytes, mirrored between Bloomington and Indianapolis.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Globus</p></div></dt>
+        <dd><div class="dp-fc-back"><p>A research data transfer service for scheduling large transfers between registered endpoints. IU HPC systems and the SDA are both available as Globus endpoints.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>/N/scratch (Slate Scratch)</p></div></dt>
+        <dd><div class="dp-fc-back"><p>High-speed temporary storage for active jobs. Files not accessed in 30 days are automatically deleted.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>quota command</p></div></dt>
+        <dd><div class="dp-fc-back"><p>Shows storage usage and limits across all accessible file systems, including inode counts.</p></div></dd>
+        <dt><div class="dp-fc-front"><p>Metadata server</p></div></dt>
+        <dd><div class="dp-fc-back"><p>A dedicated server handling all file and directory metadata operations separately from data I/O. Excessive metadata requests bottleneck this server for all users.</p></div></dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- ============================ DID YOU KNOW? / WHAT'S NEXT (two-tone footer, flat) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 0px; margin-bottom: 0px; padding: 0px">
+    <div class="dp-column-container container-fluid p-0 dp-margin-direction-tblr" style="margin-bottom: 0px">
+      <div class="row dp-margin-direction-tblr dp-padding-direction-tblr dp-bg" style="margin-bottom: 0px; padding: 0px; background: #1a4f6e">
+        <div class="dp-bg dp-padding-direction-tblr cp-bg-info col-lg-6 col-md-6 col-sm-6" style="padding: 35px 35px 45px 45px; background: #1a4f6e; color: #fff">
+          <h3 class="dp-padding-direction-tblr dp-text-bold dp-has-icon" style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px">
+            <i class="dp-icon fas fa-lightbulb" aria-hidden="true"><span class="dp-icon-content" style="display: none">&nbsp;</span></i>&nbsp;Did You Know?
+          </h3>
+          <p>
+            IU's Slate Lustre file system spans over 3.5 petabytes of raw storage. Printed on standard paper at 80 characters per line, that much text would
+            stack roughly 300,000 kilometers high, nearly the distance from Earth to the Moon.
+          </p>
+        </div>
+        <div class="dp-bg dp-padding-direction-tblr cp-bg-mid col-lg-6 col-md-6 col-sm-6" style="padding: 35px 35px 45px 45px; background: #006298; color: #fff">
+          <h3 class="dp-padding-direction-tblr dp-text-bold dp-has-icon" style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px">
+            <i class="fas fa-check-square"><span class="dp-icon-content" style="display: none">&nbsp;</span></i> What's Next
+          </h3>
+          <p><span>Continue to Lesson 2, <strong>Using IU HPC File Systems</strong>, where you'll navigate your directories, check quotas, and archive data.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ MODULE PROGRESS BAR ============================ -->
+  <!-- Renders on Canvas only (needs the live module list). -->
+  <div class="dp-content-block dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dark" style="margin-top: 0px; padding: 12px 20px">
+    <p style="text-align: right; font-size: 16px; line-height: 1.4; margin: 0">
+      &nbsp;Ready for what's next? Select the<span style="margin-left: 5px; margin-right: 5px"
+        ><i class="fas fa-caret-right" aria-hidden="true"><span class="dp-icon-content" style="display: none">&nbsp;</span></i> Next button to continue.</span
+      >
+    </p>
+  </div>
+</div>

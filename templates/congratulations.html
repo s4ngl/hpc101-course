@@ -1,0 +1,195 @@
+<div
+  id="dp-wrapper"
+  class="dp-wrapper"
+  data-header-class="dp-header dp-colored-headings variation-2"
+  data-nav-class="container-fluid dp-link-grid dp-link-grid-circle-right variation-2"
+  data-img-url="https://designtools.ciditools.com/css/images/banner_desert_sky.png"
+>
+  <!-- Shared design tokens: no border-radius anywhere; consistent card outline. -->
+  <style>
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card,
+    #dp-wrapper .btn,
+    #dp-wrapper .nav-link,
+    #dp-wrapper .dp-embed-wrapper iframe,
+    #dp-wrapper .dp-fc,
+    #dp-wrapper img {
+      border-radius: 0 !important;
+    }
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card {
+      border: 1px solid rgba(0, 0, 0, 0.175);
+    }
+    /* DP's focus ring is dark red; use IU blue instead. */
+    #dp-wrapper .nav-link:focus,
+    #dp-wrapper .dp-panel-toggler:focus,
+    #dp-wrapper .btn:focus {
+      outline-color: #006298 !important;
+    }
+  </style>
+
+  <!-- ============================ HEADER (flat blue, race-car overlay bottom-right) ============================ -->
+  <header
+    class="dp-header dp-colored-headings variation-2 dp-bg text-start cp-bg-dp-secondary dp-bg-image dp-wcag-aaa text-light"
+    style="
+      padding: 40px 40px 44px;
+      min-height: 180px;
+      background:
+        url('../assets/images/race-car.png') right bottom / auto 70% no-repeat,
+        #006298;
+    "
+  >
+    <img class="dp-bg-image-src" style="display: none" role="presentation" src="../assets/images/race-car.png" alt="" loading="lazy" />
+    <h2 class="dp-heading text-start">
+      <span class="dp-header-pre text-start" style="background: none; font-size: 22px; padding-top: 0px; margin-left: 0px; padding-left: 0px">
+        <span class="dp-header-pre-1 text-start" style="color: #ffffff">End of Course</span>
+      </span>
+      <span class="dp-header-title" style="color: #ffffff">Congratulations!</span>
+    </h2>
+  </header>
+
+  <!-- ============================ INTRO / CELEBRATION ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 35px; margin-bottom: 35px">
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 18px">You did it!</h3>
+    <p>
+      You've completed HPC 101. You now understand HPC fundamentals, how to access and use IU's HPC systems, how to manage research storage and data,
+      and the best practices that keep shared resources running smoothly for everyone.
+    </p>
+  </div>
+
+  <!-- ============================ CLAIM YOUR CREDENTIAL ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr" style="margin-top: 35px; margin-bottom: 35px; padding: 0px">
+    <h3
+      class="dp-bg dp-text-bold dp-has-icon"
+      style="margin: 0px; padding: 12px 20px; background: #343a40; color: #ffffff; font-size: 28px; line-height: 1.4; text-align: center"
+    >
+      <i class="dp-icon fas fa-award" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Claim Your Credential
+    </h3>
+    <div class="dp-column-container container-fluid" style="padding-top: 18px">
+      <div class="row">
+        <div class="col-12 dp-specify">
+          <p>
+            By finishing all the required quizzes and activities, you've earned the <strong>HPC 101 Certified</strong> microcredential. Follow the
+            steps below to claim and share it:
+          </p>
+          <ol>
+            <li>Watch for a notification of your award from IU Badges (Parchment).</li>
+            <li>Accept the badge and add it to your profile.</li>
+            <li>Share it on LinkedIn and your r&eacute;sum&eacute; to showcase your HPC skills.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ WHERE TO GO NEXT (accordion) ============================ -->
+  <!-- Full-bleed gray bar header (block has no top/side padding); flush to the two-col footer. -->
+  <div
+    class="dp-content-block cp-bg-dp-gray dp-bg dp-margin-direction-tblr"
+    style="margin-top: 35px; margin-bottom: 0px; padding: 0px; background: #cfe7f1"
+  >
+    <h3
+      class="dp-bg dp-text-bold dp-has-icon"
+      style="margin: 0px; padding: 12px 20px; background: #343a40; color: #ffffff; font-size: 28px; line-height: 1.4; text-align: center"
+    >
+      <i class="dp-icon fas fa-map-signs" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Where to Go Next
+    </h3>
+    <div class="dp-panels-wrapper dp-expander-default dp-panels-built" id="dp-expander-0" style="padding: 25px">
+      <div class="btn-group dp-expander-controls">
+        <button
+          class="btn btn-mid btn-sm dp-expander-expand"
+          aria-label="Open Expander"
+          aria-controls="dp-expander-0"
+          data-tippy-content="Expand All Panels"
+        >
+          <i class="fas fa-caret-down" aria-hidden="true"></i>
+        </button>
+        <button
+          class="btn btn-mid btn-sm dp-expander-collapse"
+          aria-label="Close Expander"
+          aria-controls="dp-expander-0"
+          style="margin-left: -1px"
+          data-tippy-content="Collapse All Panels"
+        >
+          <i class="fas fa-caret-up" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <h4 class="dp-panel-heading dp-panels-built" id="dpPanelA">
+        <a href="#dpPanelA" role="button" class="dp-panel-toggler ," aria-controls="dpPanelAContent" aria-expanded="false"
+          ><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Request an HPC Account</a
+        >
+      </h4>
+      <div class="dp-panel-content" tabindex="0" id="dpPanelAContent" style="display: none" aria-labelledby="dpPanelA" role="region">
+        <h4 aria-level="1">Request an HPC Account</h4>
+        <p>Ready to run your own work? Request access to IU's research supercomputers and set up your account to start submitting jobs.</p>
+      </div>
+
+      <h4 class="dp-panel-heading dp-panels-built" id="dpPanelB">
+        <a href="#dpPanelB" role="button" class="dp-panel-toggler ," aria-controls="dpPanelBContent" aria-expanded="false"
+          ><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Get Help &amp; Support</a
+        >
+      </h4>
+      <div class="dp-panel-content" tabindex="0" id="dpPanelBContent" style="display: none" aria-labelledby="dpPanelB" role="region">
+        <h4 aria-level="1">Get Help &amp; Support</h4>
+        <p>UITS Research Technologies offers consulting, documentation, and support to help you make the most of IU's HPC systems.</p>
+      </div>
+
+      <h4 class="dp-panel-heading dp-panels-built" id="dpPanelC">
+        <a href="#dpPanelC" role="button" class="dp-panel-toggler ," aria-controls="dpPanelCContent" aria-expanded="false"
+          ><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Keep Learning</a
+        >
+      </h4>
+      <div class="dp-panel-content" tabindex="0" id="dpPanelCContent" style="display: none" aria-labelledby="dpPanelC" role="region">
+        <h4 aria-level="1">Keep Learning</h4>
+        <p>Explore more advanced research computing topics and training opportunities to deepen the skills you've built in this course.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ THANK YOU / KEEP GOING (two-tone, flat) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 0px; margin-bottom: 0px; padding: 0px">
+    <div class="dp-column-container container-fluid p-0 dp-margin-direction-tblr" style="margin-bottom: 0px">
+      <div class="row dp-margin-direction-tblr dp-padding-direction-tblr dp-bg" style="margin-bottom: 0px; padding: 0px; background: #1a4f6e">
+        <div
+          class="dp-bg dp-padding-direction-tblr cp-bg-info col-lg-6 col-md-6 col-sm-6"
+          style="padding: 35px 35px 45px 45px; background: #1a4f6e; color: #fff"
+        >
+          <h3
+            class="dp-padding-direction-tblr dp-text-bold dp-has-icon"
+            style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px"
+          >
+            <i class="dp-icon fas fa-heart" aria-hidden="true"><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+            >&nbsp;Thank You
+          </h3>
+          <p>Thanks for learning with us. We hope HPC 101 helps you make the most of IU's research computing resources.</p>
+        </div>
+        <div
+          class="dp-bg dp-padding-direction-tblr cp-bg-mid col-lg-6 col-md-6 col-sm-6"
+          style="padding: 35px 35px 45px 45px; background: #006298; color: #fff"
+        >
+          <h3
+            class="dp-padding-direction-tblr dp-text-bold dp-has-icon"
+            style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px"
+          >
+            <i class="fas fa-rocket"><span class="dp-icon-content" style="display: none">&nbsp;</span></i> Keep Going
+          </h3>
+          <p><span>Ready to put HPC to work? Explore IU's research computing resources and request an account to get started.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ GRAY BOTTOM FOOTER (HPC Guide) ============================ -->
+  <div class="dp-content-block dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dark" style="margin-top: 0px; padding: 12px 20px">
+    <p style="text-align: right; font-size: 16px; line-height: 1.4; margin: 0">
+      Want more? Visit the
+      <a href="https://ci.iu.edu/doc/training/v3/" target="_blank" rel="noopener" style="color: #6fc3df">IU HPC Guide</a>
+      for thorough documentation and workflows for getting started.
+    </p>
+  </div>
+</div>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HPC 101 — Local Canvas Preview</title>
+
+  <!--
+    Local preview harness for HPC 101 DesignPLUS Canvas pages.
+    Loads the same CSS/JS that style dp-*/cp- classes on real Canvas, then
+    injects a selected pages/ or templates/ file into a Canvas-shaped DOM
+    (#content > #wiki_page_show > .show-content.user_content) so ancestor-scoped
+    DesignPLUS rules (e.g. ".user_content .dp-wrapper", "#content .dp-wrapper") resolve.
+
+    Run a static server from the repo root, e.g.:
+      python3 -m http.server 8000
+    then open http://localhost:8000/
+  -->
+
+  <!-- Canvas brand base (load first; DP/Bootstrap layer on top) -->
+  <link rel="stylesheet" href="assets/css/canvas-fonts.css">
+  <link rel="stylesheet" href="assets/css/canvas-variables.css">
+  <link rel="stylesheet" href="assets/css/canvas-common.css">
+  <link rel="stylesheet" href="assets/css/canvas-wiki_page.css">
+  <!-- Icons -->
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <!-- Bootstrap (DesignPLUS depends on it for grid/cards) -->
+  <link rel="stylesheet" href="assets/css/bootstrap.css">
+  <!-- DesignPLUS framework (defines all dp-*/cp- classes) -->
+  <link rel="stylesheet" href="assets/css/dp-content.css">
+  <!-- IU institutional overrides -->
+  <link rel="stylesheet" href="assets/css/IU.css">
+
+  <!--
+    Canvas globals so dp-content.js runs outside Canvas without throwing (inert, preview only).
+    The DP behavior script (dp-content.js) is NOT loaded here. It initializes its widgets
+    (flashcards, panels, tabs) ONCE on document-ready against whatever is already in the DOM,
+    with no re-scan hook. So the harness injects the page content FIRST, then appends
+    dp-content.js — see the bootstrap script at the end of <body>.
+  -->
+  <script>
+    window.ENV = window.ENV || {
+      COURSE_ID: "2395204",
+      current_user_roles: ["teacher"],
+      current_user_is_student: false,
+      WIKI_PAGE: {},
+      current_user: { display_name: "Preview" }
+    };
+    window.INST = window.INST || {};
+
+    // DpConfig is the institution's DesignPLUS config. dp-content.js aborts init with
+    // "DpConfig is not defined" without it. These are IU's real values (extracted from
+    // the DpPrimary object in IU.js), plus inert defaults for fields DP reads but that
+    // don't affect rendering. editorEnabled:false keeps the (Canvas-only) editor UI off.
+    window.DpConfig = Object.assign({
+      lms: "canvas",
+      templateCourse: "2192942",
+      hideButton: true,
+      extendedCourse: "",
+      sharedCourse: "",
+      courseFormats: [],
+      canvasRoles: ["admin", "teacher"],
+      canvasUsers: [],
+      canvasCourseIds: [],
+      plugins: [],
+      excludedModules: [],
+      includedModules: [],
+      lang: "en",
+      defaultToLegacy: false,
+      enableVersionSwitching: true,
+      hideSwitching: true,
+      // inert defaults (preview only)
+      editorEnabled: false,
+      editorDisabled: true,
+      hideLti: true,
+      specifiedAccounts: [],
+      sortableRubrics: false,
+      toolsUri: "",
+      dbRequestUri: "",
+      version: "2026.06.11",
+      courseSettings: {}
+    }, window.DpConfig || {});
+
+    // DT_variables + dtVersion drive the legacy DesignPLUS loader (master_controls.js).
+    // Values copied from the live IU Canvas page so the loader runs without errors.
+    window.DT_variables = window.DT_variables || {
+      iframeID: "",
+      path: "https://designtools.ciditools.com/",
+      templateCourse: "2146888",
+      overrideAllyHeadings: true,
+      hideButton: true,
+      limitByFormat: false,
+      formatArray: ["online", "on-campus", "blended"],
+      limitByRole: true,
+      roleArray: ["admin", "teacher"],
+      limitByUser: false,
+      userArray: [],
+      sortableRubrics: false,
+      showStudentCards: false
+    };
+    window.dtVersion = window.dtVersion || "2025.12.16";
+  </script>
+  <!--
+    jQuery 3.7.1 global (matches live Canvas). content.js binds its widget handlers
+    through a DesignPLUS-namespaced jQuery global named DP_jQuery_<timestamp>, which the
+    institution's loader sets up on real Canvas. We create it here so content.js finds it
+    and wires flashcard flips / accordion toggles. Without it, widgets build but clicks
+    do nothing.
+  -->
+  <script src="assets/js/jquery-3.7.1.min.js"></script>
+  <!--
+    Bootstrap 4 JS (jQuery-plugin build). DesignPLUS dp-tabs-pills tabs use Bootstrap's
+    data-toggle="tab" plugin (jQuery.fn.tab); without it, tab clicks don't switch panels.
+    Real Canvas has this loaded (body.bootstrap-loaded).
+  -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    // Replicate the institutional loader's DP-namespaced jQuery global + body init flags
+    // that real Canvas sets. content.js binds widget handlers through this jQuery; the
+    // body flags gate DesignPLUS CSS/JS init stages (flip animation needs body:not(.dp-editor)).
+    window["DP_jQuery_" + "1781460643219"] = window.jQuery;
+    window.$dt = window.jQuery;
+    document.documentElement.classList.add("js");
+    // Set on <body> once it parses.
+    document.addEventListener("DOMContentLoaded", function () {
+      document.body.classList.add(
+        "dp-js-loaded", "dp-legacy-js-loaded", "bootstrap-loaded",
+        "context-course_2395204", "pages", "show"
+      );
+    });
+  </script>
+
+
+  <style>
+    /* ---- Preview-only chrome (NOT part of the Canvas page) ---- */
+    html, body { margin: 0; padding: 0; }
+    #dp-preview-bar {
+      position: sticky; top: 0; z-index: 9999;
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      background: #2d2d2d; color: #fff;
+      padding: 10px 16px; font: 14px/1.3 -apple-system, system-ui, sans-serif;
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+    }
+    #dp-preview-bar strong { font-weight: 700; letter-spacing: .3px; }
+    #dp-preview-bar select, #dp-preview-bar button {
+      font: inherit; padding: 5px 8px; border-radius: 5px; border: 1px solid #555;
+      background: #fff; color: #111; cursor: pointer;
+    }
+    #dp-preview-bar button { background: #006298; color: #fff; border-color: #006298; }
+    #dp-preview-bar label { display: flex; align-items: center; gap: 6px; }
+    #dp-preview-bar .spacer { flex: 1; }
+    #dp-preview-bar .status { opacity: .75; font-size: 12px; }
+    #dp-preview-bar .err { color: #ffb3b3; }
+
+    /* Approximate Canvas page-content column width + padding so layouts match. */
+    #content.ic-Layout-contentMain {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 24px 80px;
+      box-sizing: border-box;
+    }
+    /* Toggle to simulate the narrower column when the course nav is expanded. */
+    body.course-menu-expanded #content.ic-Layout-contentMain { max-width: 1000px; }
+  </style>
+</head>
+
+<!-- Body classes mirror a Canvas course wiki page so body-scoped DP rules apply. -->
+<body class="context-course_2395204 pages with-left-side course-menu-expanded">
+
+  <div id="dp-preview-bar">
+    <strong>HPC 101 Preview</strong>
+    <label>Page:
+      <select id="dp-page-select"></select>
+    </label>
+    <button id="dp-reload" title="Re-fetch the current file">↻ Reload</button>
+    <label><input type="checkbox" id="dp-navtoggle" checked> course-menu-expanded</label>
+    <label><input type="checkbox" id="dp-darktoggle"> dark mode</label>
+    <span class="spacer"></span>
+    <span class="status" id="dp-status"></span>
+  </div>
+
+  <!-- Canvas content DOM shape -->
+  <div id="content" class="ic-Layout-contentMain" role="main">
+    <div id="wiki_page_show">
+      <div class="show-content user_content enhanced" id="dp-inject">
+        <p style="padding:40px;color:#666;">Loading…</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  (function () {
+    // The set of editable files this harness can preview.
+    // Keep in sync with the repo; grouped for the dropdown.
+    var FILES = {
+      "Templates": [
+        "templates/overview.html",
+        "templates/lesson.html",
+        "templates/syllabus.html",
+        "templates/congratulations.html"
+      ],
+      "Pages — Module 1": [
+        "pages/m1-overview.html",
+        "pages/m1-lesson1.html"
+      ],
+      "Pages — Module 2": [
+        "pages/m2-overview.html",
+        "pages/m2-lesson1.html",
+        "pages/m2-lesson2.html"
+      ],
+      "Pages — Module 3": [
+        "pages/m3-overview.html",
+        "pages/m3-lesson1.html",
+        "pages/m3-lesson2.html"
+      ],
+      "Pages — Module 4": [
+        "pages/m4-overview.html",
+        "pages/m4-lesson1.html",
+        "pages/m4-lesson2.html"
+      ],
+      "Pages — Other": [
+        "pages/syllabus.html",
+        "pages/congratulations.html"
+      ],
+      "Reference (read-only designs)": [
+        "reference-rendered-templates/overview.html",
+        "reference-rendered-templates/lesson.html",
+        "reference-rendered-templates/syllabus.html",
+        "reference-rendered-templates/congratulations.html",
+        "reference-rendered-templates/eom-reflection.html"
+      ]
+    };
+
+    var sel    = document.getElementById("dp-page-select");
+    var inject = document.getElementById("dp-inject");
+    var status = document.getElementById("dp-status");
+
+    // Build the grouped dropdown.
+    Object.keys(FILES).forEach(function (group) {
+      var og = document.createElement("optgroup");
+      og.label = group;
+      FILES[group].forEach(function (path) {
+        var o = document.createElement("option");
+        o.value = path;
+        o.textContent = path;
+        og.appendChild(o);
+      });
+      sel.appendChild(og);
+    });
+
+    function setStatus(msg, isErr) {
+      status.textContent = msg;
+      status.className = "status" + (isErr ? " err" : "");
+    }
+
+    function isKnown(path) {
+      return Object.keys(FILES).some(function (g) { return FILES[g].indexOf(path) !== -1; });
+    }
+
+    // Load dp-content.js exactly once, AFTER content is in the DOM. DesignPLUS builds
+    // its widgets (flashcards, panels, tabs) on document-ready against the existing DOM
+    // and offers no public re-scan hook — so the content must be present before the
+    // script runs. Returns a promise that resolves when the script has loaded.
+    function loadScript(src) {
+      return new Promise(function (resolve) {
+        var s = document.createElement("script");
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = function () { setStatus(src + " failed to load", true); resolve(); };
+        document.body.appendChild(s);
+      });
+    }
+
+    // Load the DesignPLUS scripts AFTER content is in the DOM, in the live Canvas order:
+    // master_controls.js (legacy loader / init flags) then content.js (widget builder).
+    function loadDesignPlusOnce() {
+      return loadScript("assets/js/master_controls.js")
+        .then(function () { return loadScript("assets/js/dp-content.js"); });
+    }
+
+    // Inject the page, then initialize DesignPLUS. Called once per full page load.
+    function injectAndInit(path) {
+      setStatus("loading " + path + " …");
+      return fetch(path + "?t=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.text();
+        })
+        .then(function (html) {
+          inject.innerHTML = html;
+          return loadDesignPlusOnce();
+        })
+        .then(function () {
+          setStatus("loaded " + path);
+        })
+        .catch(function (e) {
+          inject.innerHTML =
+            '<p style="padding:40px;color:#b00;">Failed to load <code>' + path +
+            '</code>: ' + e.message +
+            '<br><br>Are you running a static server from the repo root? ' +
+            '(e.g. <code>python3 -m http.server 8000</code>)</p>';
+          setStatus("error: " + e.message, true);
+        });
+    }
+
+    // Routing uses the ?page= QUERY PARAM, NOT the URL hash. DesignPLUS treats
+    // location.hash as a jQuery selector for in-page anchor links, so a path in the
+    // hash (e.g. "#pages/m1-lesson1.html") makes DP run $(".dp-wrapper #pages/..."),
+    // which is an invalid selector and crashes its init. Keeping the hash clean avoids that.
+    function pageFromUrl() {
+      var p = new URLSearchParams(window.location.search).get("page");
+      return p || "";
+    }
+
+    // Switching pages and Reload both do a FULL page reload (not in-place re-inject),
+    // because dp-content.js can only init once. The ?page= param carries the selection.
+    function navigateTo(path) {
+      var url = window.location.pathname + "?page=" + encodeURIComponent(path);
+      if (window.location.search === "?page=" + encodeURIComponent(path)) {
+        window.location.reload();
+      } else {
+        window.location.assign(url);
+      }
+    }
+
+    sel.addEventListener("change", function () { navigateTo(sel.value); });
+    document.getElementById("dp-reload").addEventListener("click", function () { window.location.reload(); });
+
+    document.getElementById("dp-navtoggle").addEventListener("change", function (e) {
+      document.body.classList.toggle("course-menu-expanded", e.target.checked);
+    });
+    document.getElementById("dp-darktoggle").addEventListener("change", function (e) {
+      document.body.classList.toggle("dp-dark-mode", e.target.checked);
+    });
+
+    // On load: pick the file from ?page= (default to the overview template),
+    // sync the dropdown, then inject + init.
+    var initial = pageFromUrl();
+    if (!isKnown(initial)) initial = "templates/overview.html";
+    sel.value = initial;
+    injectAndInit(initial);
+  })();
+  </script>
+
+</body>
+</html>

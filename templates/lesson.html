@@ -1,0 +1,193 @@
+<div
+  id="dp-wrapper"
+  class="dp-wrapper"
+  data-header-class="dp-header dp-colored-headings variation-2"
+  data-nav-class="container-fluid dp-link-grid dp-link-grid-circle-right variation-2"
+  data-img-url="https://designtools.ciditools.com/css/images/banner_desert_sky.png"
+>
+  <!-- Shared design tokens: no border-radius anywhere; consistent card outline. -->
+  <style>
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card,
+    #dp-wrapper .btn,
+    #dp-wrapper .nav-link,
+    #dp-wrapper .dp-embed-wrapper iframe,
+    #dp-wrapper .dp-fc,
+    #dp-wrapper img { border-radius: 0 !important; }
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card { border: 1px solid rgba(0, 0, 0, 0.175); }
+    /* Flashcard set: drop DP's own background so the light-blue wrapper shows through. */
+    #dp-wrapper .dp-fcs { background: transparent !important; }
+    /* Hide the (empty) auto-generated flashcard instructions line. */
+    #dp-wrapper .dp-fcs-instructions { display: none !important; }
+    /* DP's focus ring is dark red; use IU blue instead. */
+    #dp-wrapper .nav-link:focus,
+    #dp-wrapper .dp-panel-toggler:focus,
+    #dp-wrapper .btn:focus { outline-color: #006298 !important; }
+  </style>
+
+  <!-- ============================ HEADER (flat blue, race-car overlay bottom-right) ============================ -->
+  <header
+    class="dp-header dp-colored-headings variation-2 dp-bg text-start cp-bg-dp-secondary dp-bg-image dp-wcag-aaa text-light"
+    style="
+      padding: 40px 40px 44px;
+      min-height: 180px;
+      background: url('../assets/images/race-car.png') right bottom / auto 70% no-repeat, #006298;
+    "
+  >
+    <img class="dp-bg-image-src" style="display: none" role="presentation" src="../assets/images/race-car.png" alt="" loading="lazy" />
+    <h2 class="dp-heading text-start">
+      <span class="dp-header-pre text-start" style="background: none; font-size: 22px; padding-top: 0px; margin-left: 0px; padding-left: 0px">
+        <span class="dp-header-pre-1 text-start" style="color: #ffffff">Module #</span> <span class="dp-header-pre-2">Lesson #</span>
+      </span>
+      <span class="dp-header-title" style="color: #ffffff">Lesson Title</span>
+    </h2>
+  </header>
+
+  <!-- ============================ INTRODUCTION ============================ -->
+  <div
+    class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr"
+    style="margin-bottom: 35px; margin-top: 35px; padding-bottom: 8px; padding-top: 0px"
+  >
+    <div class="dp-column-container container-fluid">
+      <div class="row dp-padding-direction-tblr" style="padding-bottom: 8px; padding-top: 0px">
+        <div class="col-12 dp-padding-direction-tblr dp-specify" style="padding-top: 15px; padding-bottom: 15px" data-classes="col-12 dp-padding-direction-tblr">
+          <h3 class="dp-padding-direction-tblr dp-text-bold dp-margin-direction-tblr" style="padding-left: 0px; margin-left: 0px">
+            Lesson Topic
+          </h3>
+          <p>
+            <span
+              >Introduce the lesson here: what it covers and why it matters. One or two short paragraphs is enough to orient learners before the
+              slides and activities below.</span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ SLIDES / VIDEO ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr" style="margin-top: 35px; margin-bottom: 35px">
+    <h3
+      class="dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dp-gray"
+      style="padding: 12px 20px; margin: 0 auto 2%; background: #343a40; color: #ffffff; text-align: center; font-size: 28px; line-height: 1.4"
+    >
+      <i class="dp-icon fas fa-desktop" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Lesson Slides
+    </h3>
+    <div class="dp-embed-wrapper" style="text-align: center; margin-top: 24px">
+      <iframe
+        title="Lesson slides"
+        src="https://hpc101-slides.pages.dev/module-1/set-1/1"
+        width="800"
+        height="500"
+        loading="lazy"
+        allowfullscreen="allowfullscreen"
+      ></iframe>
+    </div>
+
+    <!-- Collapsible transcript (accordion) — structure from reference lesson.html -->
+    <div class="dp-panels-wrapper dp-accordion-default" style="max-width: 800px; margin: 24px auto auto">
+      <h4 class="dp-panel-heading dp-panels-built" id="dpPanel0">
+        <a href="#dpPanel0" role="button" class="dp-panel-toggler ," aria-controls="dpPanel0Content" aria-expanded="false"
+          ><i class="dp-panel-icon fas fa-caret-up" aria-hidden="true"></i> Transcript / Notes</a
+        >
+      </h4>
+      <div class="dp-panel-content" tabindex="0" id="dpPanel0Content" style="display: none" aria-labelledby="dpPanel0" role="region">
+        <h4 aria-level="1">Transcript / Notes</h4>
+        <p>Paste the slide notes or transcript here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ FLASHCARDS (interactive activity) ============================ -->
+  <!-- Light-blue content block, flush to footer. Gray bar header is full-bleed (block has no
+       top/side padding) and matches the height of the Lesson Slides / footer bars. The inner
+       content gets its own padding so only it sits inside the light-blue field. -->
+  <div
+    class="dp-content-block cp-bg-dp-gray dp-bg dp-margin-direction-tblr"
+    style="margin-top: 35px; margin-bottom: 0px; padding: 0px; background: #cfe7f1"
+  >
+    <h3
+      class="dp-bg dp-text-bold dp-has-icon"
+      style="margin: 0px; padding: 12px 20px; background: #343a40; color: #ffffff; font-size: 28px; line-height: 1.4; text-align: center"
+    >
+      <i class="far fa-sticky-note" aria-hidden="true" style="margin-right: 8px"
+        ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+      >Flashcards
+    </h3>
+    <div
+      class="dp-fcs dp-si-disable-submit dp-si-hide-timer dp-si-hide-solution dp-block-hover"
+      data-interactive-id="dpFlashcards1"
+      data-interactive-type="Flashcards"
+      data-interactive-title="Flashcards 1"
+      style="padding: 28px 25px 4px"
+    >
+      <dl>
+      <dt>
+        <div class="dp-fc-front"><p>Term 1</p></div>
+      </dt>
+      <dd>
+        <div class="dp-fc-back"><p>Definition of term 1.</p></div>
+      </dd>
+      <dt>
+        <div class="dp-fc-front"><p>Term 2</p></div>
+      </dt>
+      <dd>
+        <div class="dp-fc-back"><p>Definition of term 2.</p></div>
+      </dd>
+      <dt>
+        <div class="dp-fc-front"><p>Term 3</p></div>
+      </dt>
+      <dd>
+        <div class="dp-fc-back"><p>Definition of term 3.</p></div>
+      </dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- ============================ DID YOU KNOW? / WHAT'S NEXT (two-tone footer, flat) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 0px; margin-bottom: 0px; padding: 0px">
+    <div class="dp-column-container container-fluid p-0 dp-margin-direction-tblr" style="margin-bottom: 0px">
+      <div class="row dp-margin-direction-tblr dp-padding-direction-tblr dp-bg" style="margin-bottom: 0px; padding: 0px; background: #1a4f6e">
+        <div
+          class="dp-bg dp-padding-direction-tblr cp-bg-info col-lg-6 col-md-6 col-sm-6"
+          style="padding: 35px 35px 45px 45px; background: #1a4f6e; color: #fff"
+        >
+          <h3
+            class="dp-padding-direction-tblr dp-text-bold dp-has-icon"
+            style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px"
+          >
+            <i class="dp-icon fas fa-lightbulb" aria-hidden="true"><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+            >&nbsp;Did You Know?
+          </h3>
+          <p>Add an interesting real-world fact or application related to this lesson, with a link if you have one.</p>
+        </div>
+        <div
+          class="dp-bg dp-padding-direction-tblr cp-bg-mid col-lg-6 col-md-6 col-sm-6"
+          style="padding: 35px 35px 45px 45px; background: #006298; color: #fff"
+        >
+          <h3
+            class="dp-padding-direction-tblr dp-text-bold dp-has-icon"
+            style="font-size: 18px; border-width: medium; border-style: none; border-color: currentcolor; padding-left: 0px"
+          >
+            <i class="fas fa-check-square"><span class="dp-icon-content" style="display: none">&nbsp;</span></i> What's Next
+          </h3>
+          <p><span>Briefly preview what comes next (the next lesson or the module quiz).</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ MODULE PROGRESS BAR ============================ -->
+  <!-- Renders on Canvas only (needs the live module list). -->
+  <div class="dp-content-block dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dark" style="margin-top: 0px; padding: 12px 20px">
+    <a class="dp-progress-placeholder dp-module-progress cp-bg-dp-gray" data-color-class="cp-bg-dp-gray" style="display: none">Module Progress Bar</a>
+    <p style="text-align: right; font-size: 16px; line-height: 1.4; margin: 0">
+      &nbsp;Ready for what's next? Select the<span style="margin-left: 5px; margin-right: 5px"
+        ><i class="fas fa-caret-right" aria-hidden="true"><span class="dp-icon-content" style="display: none">&nbsp;</span></i> Next button to continue.</span
+      >
+    </p>
+  </div>
+</div>

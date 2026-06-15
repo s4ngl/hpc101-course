@@ -1,0 +1,344 @@
+HIGH PERFORMANCE
+COMPUTING 101
+HPC Storage @ IU (Module 3)
+Module 3 — Lesson 2
+Using IU HPC Files Systems
+Overview
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+Home directories
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+Home Directories
+● HPC setup always has server nodes that need to mount
+  networked filesystems with identical pathing
+
+● If the home directory is /home
+     ○ the server exports whatever /home points to (e.g. /homedirs)
+     ○ the client mounts it as /home
+
+● Linux symbolic links are used to simplify/organize paths
+[citrain@h2 ~]$ ls -ld /N/u/citrain
+lrwxrwxrwx 1 root root 19 Dec 19 15:06 /N/u/citrain -> /N/home/c/i/citrain
+
+     ●   An example of mapping for organizational reasons on the storage server
+Home Directories
+● Look at your home directory on Quartz
+   ○ Log in (or run cd ~)
+   ○ Run the pwd command
+      ■ You should see something like /N/u/username/Quartz
+
+● Two important things to know:
+   ○ All your home directories for HPC machines are in /N/u/username/,
+     where username is your IU Account name
+
+       ■ A subdirectory for each system you have accounts on will live there
+            ● e.g. /N/u/username/Quartz and /N/u/username/BigRed200
+Home Directories
+● Occasionally, you need to debug what physical path you're in
+    ○ The pwd command will tell you the logical path if you got there via
+      symlinks
+
+    ○ Commands pwd -L & pwd -P give logical & physical working
+      directories, respectively, e.g.
+       [citrain@h2 ~]$ pwd
+       /N/u/citrain/Quartz
+                                           You can see that the logical path,
+       [citrain@h2 ~]$ pwd -L              mentioned above, is /N/u/username/Quartz.
+       /N/u/citrain/Quartz
+                                           The physical path, after resolving any
+       [citrain@h2 ~]$ pwd -P              symbolic links (two layers you can't see), is
+       /geode2/home/u020/citrain/Quartz    rooted in the Geode 2 mount point.
+HPC file systems at IU
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+HPC File Systems at IU
+● Mount points to know for the HPC file systems
+   ○ /N/slate                        — Slate personal HPC storage
+   ○ /N/scratch                      — Slate scratch space for
+     compute I/O
+   ○ /N/project                      — Slate Project HPC storage
+     (large data)
+   ○ /geode2/projects         — Geode Project HPC storage (large
+     data)
+   ○ /geode2/home             — Geode home/login directory space
+HPC File Systems at IU
+● IU has three software stacks in production for file systems
+    ○ IBM Storage Scale
+        ■   still referred to as GPFS (General Parallel File System)
+        ■   serves home directories and Geode Project
+        ■   managed by the Research Storage group in RT
+
+    ○ Lustre
+        ■   Lustre is an open-source software stack w/ vendor support
+        ■   serves Slate, Slate Scratch and Slate Project
+        ■   managed by the High Performance File Systems group in RT
+
+    ○ VAST
+        ■   a new, high performance storage strategy being deployed by the
+            Research Storage group
+HPC File Systems
+● Modern HPC file systems are parallel, cluster-based
+
+    ○ storage is served from clusters of servers
+    ○ typically each server manages arrays of storage drives
+       ■ frequently storage servers are paired, to support failover
+    ○ arrays of drives are usually managed via specialized controllers
+        ■ controllers themselves are typically paired, for failover
+
+● The storage system hierarchy will look much like a tree
+    ○ storage drives will be the leaves on that tree
+    ○ the drives are typically arranged as redundant RAID arrays
+HPC File Systems
+● RAID stands for "redundant array of inexpensive disks"
+
+● We won't go into depth about RAID, but the idea is straightforward
+    ○ if you one one drive, you get one-drive storage capacity
+    ○ if you have N, you get N space, but no safety margin if one dies
+
+● Imagine you have N drives, but you change how you use them
+    ○ you can store N-1 drive capacity on N drives and lose one
+    ○ you can store N-2 drive capacity on N drives and lose two
+
+● So-called parity data can be used to recreate lost data
+RAID Parity and Redundancy
+● For RAID-5, single-parity redundancy, recovery is possible from a
+  single failed disk
+    ○ RAID-6 double parity allows recovery of two disks
+
+● The minimum RAID-6 config is 4 drives to get redundant storage
+  of 2-drive capacity
+
+● The process requires chunking the data and striping the data and
+  corresponding parity across drives to allow for a failed drive
+    ○ A and B in next image are purely for illustration of the logic
+    ○ P and Q are the two parity values needed for RAID-6 recovery
+RAID Parity and Redundancy
+HPC File Systems
+● RAID-6 is a so-called double-parity arrangement that allows two
+  drives in a group to fail before data is lost
+    ○ this is a typical HPC storage arrangement
+    ○ additional "hot-spare" drives will automatically jump in on failure
+    ○ spares are rebuilt from parity info on remaining drives, to replace
+      failed drive
+
+● Cluster file systems will use multiple RAID-6 arrays
+    ○ each array gets represented interally as a single virtual drive
+
+● This virtual drives are stitched together to form file systems
+Key Components of a Parallel File System
+● At the business end of the file system,
+    there are drawers upon drawers of hard
+    drives
+     ○   Image to the right shows a typical
+         storage drawer within the Slate systems
+           ■   it holds 84 hard drives!
+           ■   can support 24 TB drives, but probably
+               has 16 TB drives
+
+●   Image at top is faceplate for a DDN
+    SFA18kx drive controller
+     ○   Can manage 22 84-drive drawers!
+     ○   That's 1848 hard drives per controller!!
+●   Since controllers are paired for redundancy,
+    normal behavior would max at 11 drawers
+Key Components of a Parallel File System
+●   Components of parallel file systems are
+
+     ○   Management server
+     ○   Metadata server(s)
+     ○   Storage server(s)
+
+●   Many storage systems are object based
+    and provide a filesystem interface
+
+●   On the client side, all this looks like
+    one file system
+     ○ no different than a single virtual
+         drive
+Key Components of a Parallel File System
+●   Lustre file systems at IU use
+    Infiniband between Lustre
+    servers
+
+●   A Lustre router sits between
+    clients that connect via
+    10/40/100 GbE
+
+●   Each Lustre file system is
+    presented as a single path on
+    client machines: e.g. /N/slate
+      ○ Same for other HPC file
+          systems
+Pick the right system for your work
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+Using IU HPC File Systems
+● Pick the right system for your work
+
+    ○ Criterion 1: "Compute against" Lustre file systems
+       ■ Scratch, Slate and Slate Project are designed to handle the I/O
+           directly from a large number of HPC jobs at one time
+
+        ■ DO NOT read/write from/to your home directory with your
+          SLURM jobs
+            ● your performance will be variable-to-substandard
+            ● it may bog down the experience of all users on the system(s)
+
+        ■ Use local disk (/tmp) where possible
+Using IU HPC File Systems
+● Pick the right system for your work
+
+    ○ Criterion 2: Scratch and local disk are ephemeral
+       ■ Data on /tmp may not survive a reboot; assume it won't
+        ■ Data on /tmp is local to the node it's written on
+        ■ /N/scratch gets purged: files not accessed in 30 days vanish
+
+        ■ If you need to store many small files (thousands), archive them
+          to tar or zip files.
+            ● It is convenient and practical for keeping track of purge dates
+        ■ Each file requires an inode and associated metadata
+            ● that adds up across millions of files and uses limited storage
+Using IU HPC File Systems
+● Pick the right system for your work
+
+    ○ Criterion 3: Where to keep your project data longer term?
+       ■ longer term here means more than 30 days
+
+        ■ If you have less than 1600 GB, use /N/slate
+
+        ■ For > 1.6 TB and less than 15 TB, apply for Slate Project space
+            ● see the KB for assistance; up to 15 TB is cost free
+
+        ■ For more than 15 TB, consider both Slate Project & Geode
+          Project; see the KB for both
+Using IU HPC File Systems
+● Use all of your storage options
+    ○ just use them wisely
+
+    ○ note that none of the HPC file systems are backed up
+        ■ redundant doesn't mean backed up; if you delete it, it's
+          gone
+
+● Imagine that you work with a research group that has a Slate
+  Project storage area called /N/project/super-research-1
+Using IU HPC File Systems
+● Use your home directory and your Slate directory for personal
+  work that others don't need access to
+
+● Use Scratch and local disks for your runtime job I/O, as
+  appropriate for the work you're doing
+
+● Use the Slate Project account to read/write/share data and work
+  with others in your research project
+
+    ○ keep in mind that others in the project will have the ability to
+      overwrite/delete data you write there, as it's shared
+                          UNFINISHED SLIDE (DELETE THIS MARKER WHEN FINISHED)
+
+
+
+VAST Placeholder
+Talk to Charlie?
+
+What's happening with VAST
+
+        Just home directories, or geode project as well?
+
+        Can we compute against VAST?
+Quota (the `quota` command)
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+Quota
+● We've covered limits on storage space
+
+● How do you know what the limits are on your account and how
+  much you have used?
+
+   ○ The limits are referred to as "quotas"
+   ○ There is a quota command that will give you this information
+
+   ○ IU HPC accounts use a customized quota command
+       ■ loaded by default, as a module (called "quota")
+Quota
+● The module list command
+    shows quota as a loaded
+    module
+
+● Running quota shows user
+  quotas on file systems the
+  user has access to
+     ○   Note there are inode quotas
+     ○   inode limits are max # files
+
+●   sda here means Scholarly Data
+    Archive (more on that next)
+Scholarly Data Archive
+● Home directories
+
+● HPC file systems at IU
+
+● Pick the right system for your work
+
+● Quota (the `quota` command)
+
+● Scholarly Data Archive
+Scholarly Data Archive
+● The Scholarly Data Archive (SDA) is a large tape and disk data
+  archiving system based on the HPSS software stack (see KB)
+   ○ Approximately 79 petabytes (PB) in tape storage
+   ○ Geographically distributed between Bloomington and Indy
+   ○ Default is dual copies of data on each tape system between sites
+
+● SDA does not present a file system interface
+   ○ data can be moved back and forth via
+       ■ hsi/htar command line client)
+       ■ SFTP (command line or GUI)
+       ■ Globus file transfer
+Reflection
+● You now know:
+  ○ how IU organizes home directories and what `/N/u/username/Quartz`
+     means
+  ○ the mount points, software stacks, and RAID architecture of IU's HPC file
+     systems
+  ○ how to choose the right file system for each part of your workflow
+  ○ how to read your storage usage and limits with the `quota` command
+  ○ what the Scholarly Data Archive is and when to use it
+● Next module covers Moving Data (Module 4)
+● Be sure to complete the reflection for this lesson
+

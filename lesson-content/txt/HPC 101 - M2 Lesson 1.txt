@@ -1,0 +1,237 @@
+HIGH PERFORMANCE
+COMPUTING 101
+HPC Computing @ IU (Module 2)
+Module 2 — Lesson 1
+Background and Getting accounts
+Overview
+● Background and Prerequisites
+
+● IU Compute Systems (RED, Quartz, Big Red 200)
+
+● Selecting a System
+
+● Creating Accounts and an RT Project
+Background and Prerequisites
+● Background and Prerequisites
+
+● IU Compute Systems (RED, Quartz, Big Red 200)
+
+● Selecting a System
+
+● Creating Accounts and an RT Project
+Some Quick Background
+● UITS Research Technologies responsible for all HPC systems
+
+● All HPC systems live in the Bloomington & Indianapolis Data
+  Centers
+
+● UITS/RT teams support hardware, applications and training
+
+● UITS Knowledge Base contains reference info & contact support
+  info:
+  https://kb.iu.edu/
+Assumed Background
+● In this and the following module, we assume that you
+
+     ○ have an IU Account username
+
+     ○ have worked through the Duo multi-factor setup for IU services
+
+     ○ have a working knowledge of Bash and basic Linux commands
+          ■   this doesn't need to be extensive
+
+●   If you are a native Windows user, you may wish to install Windows Subsystem for
+    Linux
+      ○ See https://learn.microsoft.com/en-us/windows/wsl/about
+HPC Compute Overview
+● UITS currently hosts two supercomputers and an interactive
+  desktop service
+   ○ Quartz—High Throughput Computing cluster
+   ○ Big Red 200—High Performance Cray supercomputer
+   ○ Research Desktop (RED)—Virtual Linux desktop available 24/7
+
+● These systems connect with
+   ○ IU Science DMZ—networking optimized to support data
+
+   ○ HPC Storage Systems—Slate and Geode file system groups
+       ■   More on this in next module
+IU Compute Systems
+● Background and Prerequisites
+
+● IU Compute Systems (RED, Quartz, Big Red 200)
+
+● Selecting a System
+
+● Creating Accounts and an RT Project
+Research Desktop
+● Interactive, graphical desktop on HPC platform
+   ○ fully functioning Linux desktop with 100 GB RAM
+   ○ many research applications available
+   ○ local HPC filesystem access
+
+● Provides an enduring windowing session
+   ○ which one can disconnect from and return to
+
+● Prepopulated with convenience functions and program icons
+   ○ to access HPC machines; write and submit batch job requests
+Research Desktop
+● Web desktop extends w/
+  browser window
+    ○ Note: small here, to fit on slide
+
+● Each node supports multiple
+  users
+    ○   users asked to keep apps to 4–8
+        cores max
+
+● Desktop client available w/
+  greater functionality
+Quartz
+● Quartz is the workhorse system for general HPC work and AI
+
+● Quartz contains CPU-only and GPU-accelerated nodes
+
+● CPU-only partition contains 92 compute nodes
+   ○ dual 64-core AMD EPYC 7742 2.25 GHz CPUs & 512 GB RAM
+
+● GPU-accelerated nodes in two partitions
+   ○ "gpu"—24 Apollo 6500 nodes
+       ■ dual Intel Xeon 6248 2.5 GHz 20-core CPUs & 768 GB RAM
+       ■ each node w/ 4 NVIDIA Tesla V100 PCIe 32 GB GPUs
+Quartz
+● GPU-accelerated nodes in two partitions
+   ○ "hopper"—12 Dell XE8640 nodes
+       ■ dual Intel Xeon 8468 2.1 GHz 48-core CPUs & 512 GB RAM
+       ■ each node w/ 4 NVIDIA Hopper HGX H100 SXM 80 GB GPUs
+
+● Each of the Quartz nodes has local SSD-backed storage in /tmp
+   ○ hopper queue local disk is very high speed NVMe-based SSD
+
+● All Quartz resources are scheduled by SLURM workload manager
+   ○ more detail on this ahead
+Big Red 200
+● Big Red 200 is the IU flagship supercomputer
+
+● An HPE Cray XE cluster with
+    ○ 640 dual-cpu compute nodes
+         ■   AMD EPYC 7742 2.25 GHz 64-core processors w/ 256 GB RAM
+    ○ 64 gpu-accelerated, single-cpu nodes
+         ■   AMD EPYC 7713 2.25 GHz 64-core processors w/ 512 GB RAM
+         ■   each node w/ 4 NVIDIA Ampere A100 40 GB GPUs
+
+● Includes the Cray Slingshot interconnect w/ Dragonfly topology
+    ○   200 Gbps per port with low latency
+Big Red 200
+● Big Red 200 is a state-of-the-art parallel supercomputer
+    ○ designed to support both massive parallel computations and
+      intensive AI workflows
+
+● Like Quartz, the system has a very high throughput connection to
+  the HPC file systems in the Data Center Research Pod
+
+● Using Big Red 200 is similar to Quartz, via SLURM
+    ○ requires a greater understanding of the system and development
+      tools for success
+    ○ starting with Quartz and moving to Big Red 200 is recommended
+Selecting a System
+● Background and Prerequisites
+
+● IU Compute Systems (RED, Quartz, Big Red 200)
+
+● Selecting a System
+
+● Creating Accounts and an RT Project
+Selecting a System
+● Quartz and Big Red 200 have some similarties
+    ○ but also some key differences
+    ○ exist to support a range of differing HPC workflows
+
+● Quartz is slightly more general
+    ○ development and runtime tools may be more forgiving
+    ○ just about any workflow on Quartz can run on Big Red 200 & vv
+
+● If your workflow demands a high degree of parallelism, across
+  server nodes, Big Red 200 should be your target
+Selecting a System
+● If you're working with AI, GPU specs will help you decide
+
+● Need for large amounts of RAM may dictate your choices
+
+● All nodes in both systems share access to same file systems
+
+● Presently, all GPUs are NVIDIA
+    ○ support CUDA, OpenACC and OpenCL programming
+
+● UITS RT staff are happy to help you find the right place to start
+Creating Accounts and an RT Project
+● Background and Prerequisites
+
+● IU Compute Systems (RED, Quartz, Big Red 200)
+
+● Selecting a System
+
+● Creating Accounts and an RT Project
+Creating Accounts
+● We assume you have an IU Account username already
+    ○   If not, go to https://one.iu.edu/ and search for "Create My First IU Account"
+
+● Accounts can be made via https://one.iu.edu/ "View Accounts" app
+    ○ or directly by browsing https://access.iu.edu/Accounts
+
+● Quartz and Slate accounts provide usable storage
+    ○ Home directory (100 GB)
+    ○ Slate personal space (800 GB; expandable to 1600 GB)
+
+● Start by creating Quartz and Slate accounts for yourself
+Creating Accounts
+●   Direct your web browser to
+    https://one.iu.edu/
+
+●   Sign in with your IU account
+
+●   Open the View Accounts application
+
+●   Select “Create Computing Account” on
+    lower left of “Your Accounts” page
+     ○   May be a delay of 1 hour or more after
+         any account creation
+
+     ○   Slate account requires an HPC
+         account (Quartz or Big Red 200)
+Creating an RT Project
+● HPC compute and some storage systems are freely available to
+  faculty, staff and students (with faculty/staff sponsorship)
+
+    ○ Research Desktop should be available to students immediately
+      after creating a Quartz account
+
+● Research Technologies tracks the usage of some resources by
+  using project accounts, needed to submit batch jobs
+
+● After creating your compute accounts, you must create or join a
+  project to utilize the batch queue
+Creating an RT Project
+● After creating your Quartz account,
+  go to https://projects.rt.iu.edu/
+
+● In the resulting web page, click
+  "Log in" and autheticate to your
+  account
+
+● Then click "Request a project" as
+  seen in image to the right, or go to
+     ○   https://projects.rt.iu.edu/project/create/
+
+● See "About RT Projects at IU" in
+  KB for more info
+Reflection
+● You should now have an understanding of:
+  ○ IU's HPC compute systems
+  ○ Quartz and Slate account creation
+  ○ RT Project creation
+● Next lesson covers using your accounts:
+  ○ Accessing RED and SSH into Quartz
+  ○ Loading software with modules
+  ○ Submitting your first SLURM job
+● Be sure to complete the reflection for this lesson
+

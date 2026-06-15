@@ -1,0 +1,408 @@
+HIGH PERFORMANCE
+COMPUTING 101
+An Introduction to HPC (Module 1)
+Overview
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+What is High Performance Computing?
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+What is High Performance Computing?
+● HPC systems are to desktop
+  workstations what race cars are to
+  commuter vehicles
+
+    ○ both have engines, transmissions and
+      4 wheels
+
+    ○ capable of very different performance
+
+    ○ HPC systems are complicated
+        ■ exotic hardware = higher cost
+        ■ greater effort to maintain
+What is High Performance Computing?
+● HPC systems are usually shared-use
+
+   ○ Democratized access
+   ○ Increased duty-cycle → greater ROI
+
+● IU has long history of research computing resources available at no cost to users
+
+   ○ Not like this everywhere, treat the compute time as valuable (it is)
+
+● Today, research computing systems are typically HPC systems
+
+   ○ UITS Research Technologies is home to IU HPC systems, software and support
+Parallelism: The Motivation for Supercomputing
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+Parallelism: The Motivation for Supercomputing
+● Motivation for HPC, or “supercomputing,”
+  is parallelism
+
+● Idea is that if multiple tasks can be run
+  concurrently to solve a problem, the
+  solution can be found more quickly          Graph above shows code runtime from left-to-right.
+                                              Note that top case runs serially:
+● Naively assumes problems can be made        For tasks I, II and III, chunks of work must run from
+                                              one to the next, as only one processor is available to
+  parallel                                    complete the work.
+
+                                              The lower part shows how sections of code can be
+● Generally, a part of any algorithm can be   parallelized, to speed up the runtime within those
+  “parallelized”                              parts of the whole workflow. This particular design is
+   ○ The remainder must run “serially”        called a fork-join model of parallelism.
+Parallelism: The Motivation for Supercomputing
+● How one achieves parallelism depends on both hardware
+  and code design
+
+● Michael Flynn proposed a 2 x 2 taxonomy to describe
+  computing models, separating the instructions
+  (code/processing units) and data (input)
+
+          ■   Single-instruction, single-data (SISD)
+          ■   Multiple-instruction, single-data (MISD)
+          ■   Single-instruction, single-data (SIMD)
+          ■   Multiple-instruction, single-data (MIMD)
+
+●   SISD is effectively serial computing
+
+●   SIMD is GPU computing: simple algorithms synchronized on
+    vector data
+
+●   MIMD is general supercomputing: arbitrary complexity of tasks
+    and data on CPU cores
+Parallelism: The Motivation for Supercomputing
+● Parallel codes have limits though
+
+   ○ All real parallel codes have serial
+     sections
+
+● Runtime for a Parallel Code
+
+   ○ T1 = time to run on one processor
+
+   ○ T = Tserial + Tparallel     code runtime
+
+   ○ Speedup = T1 / T
+Parallelism: The Motivation for Supercomputing
+● Gene Amdahl showed limitation caused
+  by even a tiny fraction of serial work
+
+   ○ Known as Amdahl’s Law
+
+   ○ Very useful analysis to predict
+     performance
+
+● The expression S = T1 / T becomes
+
+         S = 1 / [ (1 - fp) + (fp / N)
+
+   where
+   ○ fp is the parallel fraction of work
+   ○ N is the number of processes
+Parallelism: The Motivation for Supercomputing
+● Where does this leave us?
+
+   ○ HPC / Supercomputing requires parallel computers and codes
+
+   ○ Should never expect perfect scaling of parallel performance
+
+   ○ Can expect to see a real boost if our workflows are significantly parallel
+
+       ■ Want our runtimes to spend 95–99% of runtime in parallel
+   ○ If we’re developing the code, we should look for iterative improvements
+
+       ■ Exploiting parallelism happens by parallelizing performance bottlenecks first
+What are Supercomputers and Who Uses Them?
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+What are Supercomputers and Who Uses Them?
+● Supercomputers are the machines that are behind the term HPC
+
+   ○ Clusters of server nodes
+
+   ○ Each server node typically has one or two multi-core CPUs
+
+   ○ Server nodes have optimized RAM configurations to match core numbers
+
+   ○ Every server node is connected by an “interconnect”
+
+       ■ Low-latency, high-throughput network to allow messaging between tasks and filesystem access
+
+       ■ Frequently, there is a separate maintenance network for general tasks
+Supercomputing Architecture
+
+Compute Nodes                                CPU Cores                                    Memory Architecture
+Clusters of server-style computer nodes      Dense multi-core CPUs, typically featuring   Massive RAM capacity optimized for high-
+intended for massive parallel operation.     two or more processors per server node.      speed parallel access by all cores.
+
+
+
+
+GPUs                                         Parallel Storage                             Low-Latency Interconnect
+Hardware accelerators used for many          Storage cluster systems map thousands of     High-speed internal networks enabling
+vectorized algorithms to boost throughput.   drives into parallel file systems.           efficient shared intranode communication.
+Supercomputers
+Big Red 200 is an HPE Cray EX
+System
+● IU’s Flagship Supercomputer
+● 640 nodes of 128 CPU cores & 256 GB
+  RAM
+● 64 more nodes of 64 CPU cores, 4 NVIDIA
+  A100 GPUs & 512 GB RAM
+● Theoretical peak performance of roughly
+  7 petaFLOPs
+
+    ○ A FLOP is a “floating point operation”
+    ○ Peta is a prefix for 1015
+Supercomputing Nodes Are Packed!
+● Nodes contain CPUs, RAM, NICs, storage,
+  power supplies, fans
+   ○ and frequently GPUs & liquid cooling
+
+● The “Hopper” queue of the Quartz cluster at
+  IU contains Dell XE8640 nodes (shown left)
+   ○ Each of 12 nodes contains
+      ■ 96 CPU cores                   (upper
+         image)
+       ■ 512 GB RAM
+                  (upper image)
+       ■ 4 NVIDIA H100 GPUs (lower image)
+       ■ 80 GB VRAM per GPU
+
+● Only a slice of the Quartz system
+GPU ACCELERATION
+
+
+
+
+Vectorized Performance via SIMT
+
+Modern supercomputers utilize GPUs as
+accelerator peripherals. They require
+code to run in unison across large
+vectors of data, allowing for massive
+degree of parallelism.
+
+
+
+
+                                        NVIDIA H100 GPU
+A Look at Storage
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+A Look at Storage
+● Supercomputers work by processing data from
+  file systems
+   ○ Each node needs access to the same file
+       system
+
+   ○ File systems must be
+        ■   Networked & high-performance
+        ■   Capable of very many IOPs for each client
+
+● IU provides 5 file systems, using two software
+  stacks
+   ○ Lustre-based: Scratch, Slate & Slate Project
+   ○ GPFS-based: Geode (Home) & Geode Project
+● Each file system here is really a computer
+  cluster and arrays (thousands) of storage
+  drives
+ Storage Infrastructure Comparison
+
+Architecture Metric    Standard Workstation   HPC Supercomputer
+
+
+
+Data Access Pattern    Serial / Sequential    Massive High-Bandwidth Parallel
+
+
+
+Filesystem Structure   Local OS Managed       Shared Multi-Node Parallel
+
+
+
+System Redundancy      Standard RAID          Multi-layer Distributed Redundancy
+
+
+
+Storage Pool Scale     Individual Drives      Thousands of Integrated Units
+How Supercomputers Are Used
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+From Molecules to the Environment
+
+
+
+
+  GENOMICS & MEDICINE                               3D MAPPING & DESIGN                             SCIENCE & ENGINEERING
+3D protein folding simulations to understand      Mapping topographic landscapes to study        Modeling global atmospheric patterns to predict
+disease mechanisms and drug interactions.      environmental change and flood risk assessment.     future climate trends and extreme weather.
+Types of Parallelism
+● Three types of data-parallel workflows
+
+    ○ Embarrassingly parallel
+       ■ Zero communication or synchronization
+          between tasks
+        ■ e.g. frame rendering, Monte Carlo
+
+    ○ Fine-grained parallelism
+       ■ Frequent communication between pairs or
+           groups of nodes
+        ■ e.g. matrix mathematics
+
+    ○ Coarse-grained parallelism
+       ■ Irregular communication patterns
+       ■ e.g. molecular dynamics
+Task Parallelism
+● Form of parallelism where tasks are
+  grouped by function, run concurrently
+
+        ○ Logic is heterogenous
+        ○ Communication patterns complex
+        ○ HPC simulations of these systems
+        ○ Actual systems distributed with IoT,
+          embedded computing
+
+   Autonomous Vehicles
+   Perception & Sensor Fusion
+   Path Planning Logic
+   Thread Team Management
+Linux is the Standard OS
+ Linux is now the universally chosen OS
+ for HPC systems
+
+ Multi-user architecture that supports
+ shared resource allocation
+
+ Accessible via CLI and Graphical
+ Desktop, as well as application APIs
+
+ Open-source core, community-led, and
+ enterprise-supported
+Research Desktop Graphical Interface
+ Linux supports windowed applications on
+ graphical desktops
+
+ IU’s Research Desktop (RED) allows you
+ to have virtual desktop on HPC server
+
+ Accessible via web browser and desktop
+ client
+
+ Workstation experience you can walk
+ away from and come back to
+Customized Design
+● Computer clusters today fall into broad
+  categories
+   ○ Defined by intended purpose
+
+   ○ HPC Supercomputing
+      ■ tightly synchronized parallelism
+      ■ priority: absolute performance
+      ■ “racecar” or “quarter horse”
+
+   ○ High Throughput Computing (HTC)
+      ■ generalist & multi-function clusters
+      ■ priority: maximizing workflow
+      ■ “semi truck” or “draft horse”
+Picking Your Path With HPC
+● What is High Performance Computing?
+
+● Parallelism: The Motivation for Supercomputing
+
+● What are Supercomputers and Who Uses Them?
+
+● A Look at Storage
+
+● How Supercomputers Are Used
+
+● Picking Your Path With HPC
+Picking Your Path With HPC
+● What sort of problems are you trying to solve?
+  ○ Is parallelism already part of your process?
+
+● Are you constrained by a particular application?
+  ○ Maintain a “workflow” mindset
+  ○ Choose the system that fits each part of that process
+
+● Consider which type of system is best for your work
+  ○ Storage systems aren’t tied to a particular cluster
+  ○ Frame your workflow around access to your data
+  ○ Use the compute resource that fits the task
+What about those results?
+● The natural endstate of your work should live somewhere
+
+● Beyond presentations and publications, save your work
+
+● Many supercomputing sites have archiving systems
+  ○ IU has a system called the Scholarly Data Archive (SDA)
+  ○ Massive storage system with multiple redundancies
+  ○ Geographically mirrored between Bloomington and Indianapolis
+
+● Archive your project data, codes, scripts, output in SDA
+  ○ Clean up disk storage for new projects, other users
+Reflection
+● Is supercomputing new to you?
+   ○ Do you see value in trying it?
+   ○ Is this something you’ve used elsewhere?
+
+● Next section focused on using HPC at IU
+
+● Be sure to complete the reflection for this section next
+

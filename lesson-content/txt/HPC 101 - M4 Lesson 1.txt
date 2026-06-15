@@ -1,0 +1,268 @@
+HIGH PERFORMANCE
+COMPUTING 101
+Data Transfer & Best Practices (Module 4)
+Module 4 — Lesson 1
+Data Transfer
+Overview
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+Choosing a transfer method
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+Decision table
+Scenario                                              Tool
+
+Large files (over 1 GB) between IU systems            Globus
+
+Personal computer to or from an IU system, any size   Globus
+
+Google Drive or OneDrive to or from an IU system      Globus
+
+Quick one-shot copy between two Linux hosts           SCP
+
+Interactive file browsing on a remote system          SFTP
+
+Interactive shell access to the SDA                   HSI
+
+Bundling many small files into SDA archives           HTAR
+Constraints
+Two constraints override everything in the table:
+
+● Protected health information (PHI), any direction: Globus or
+  SFTP only
+     ○ HSI and HTAR do not encrypt in transit and must never be
+       used for PHI
+
+● Off-campus to the SDA without an exemption: Globus or SFTP
+     ○ HSI and HTAR are on-campus tools; off-campus requires an
+       exemption from store-admin@iu.edu
+SCP & SFTP
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+SCP — one-shot copy
+●   Copies a file in a single command, no interactive session
+●   Best for quick, small copies when you know the exact paths
+●   Remote paths take the form `username@hostname:path`
+●   Upload to Quartz:
+     ○ $ scp mydata.tar.gz username@quartz.uits.iu.edu:/N/slate/username/
+● Download from Quartz:
+     ○ $ scp username@quartz.uits.iu.edu:/N/slate/username/results.csv .
+● `-r` copies a directory recursively
+● Two-Step Login (Duo) required; SSH public key authentication
+  available via the SSH public key authentication agreement
+● No resume: a failed transfer restarts from the beginning
+SFTP — interactive browse
+● Interactive session: browse the remote tree, then transfer
+● Best for small transfers when you want to navigate before copying
+● Start a session:
+    ○ $ sftp username@quartz.uits.iu.edu
+● In-session commands: `ls`, `cd`, `pwd`, `put localfile`, `get
+  remotefile`, `rename old new`, `exit`
+● `lls`, `lcd`, `lpwd` act on your local side
+● Connect to the SDA: $ sftp username@sftp.sdarchive.iu.edu
+● GUI clients exist: WinSCP (Windows), Cyberduck (macOS)
+● Two-Step Login (Duo) required; SFTP resumes interrupted transfers
+Globus
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+Globus and Moving data
+● Globus provides a mechanism similar in usage to ftp/sftp
+    ○ different in that there is no "local vs remote" distinction
+
+    ○ Globus web client allows you to schedule transfer between
+      "endpoints"
+
+    ○ Globus endpoints for IU HPC are named "IURT - something"
+       ■ e.g. "IURT - Scholarly Data Archive", "IURT - Slate"
+        ■ IURT - OneDrive allows access to your OneDrive account
+
+    ○ Desktop client you can install to make your local computer an
+      endpoint
+Globus
+●   Open the URL
+    https://globus.iu.edu/
+
+●   Log in with your IU
+    credentials & Duo
+
+●   Default window is File
+    Manager
+     ○   Panels allows split
+         view
+
+●   Search IURT for
+    collections
+Globus
+●   "IURT - Geode" maps
+    to /N/u/username by
+    default
+      ○ your home dirs
+
+●   "IURT - Slate" maps a
+    directory view above
+     ○   /N/project
+     ○   /N/scratch
+     ○   /N/slate
+
+●   Point and click through
+    folders to your data
+      ○ select and transfer
+Globus
+● Typically, moving data from Geode to Slate would be much faster
+  using the file system on an HPC login node
+    ○   These two endpoints were shown for illustrative purposes
+
+● "IURT - Scholarly Data Archive" is the Globus endpoint for your
+  SDA account
+    ○ Globus is an excellent tool to transfer data from Geode or Slate
+      to SDA
+    ○ Note: bundle small files (< 1 MB) into larger tar or zip files first on
+      the filesystem
+    ○ You can store huge file sizes on SDA, but know tar & zip limits
+Globus
+● Archive your data and work to SDA frequently enough to protect
+  your progress
+    ○ definitely at important milestones
+
+● Use a file-naming strategy and your notes to keep track of what is
+  in any given tar/zip file you move to SDA.
+    ○ Include a date, so that you can keep updated backups
+    ○ Delete things that are redundant or which you don't need
+
+● Clean up file system space when you won't be using it for a while
+SDA with HSI and HTAR
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+HSI — interactive shell to the SDA
+● HSI opens an interactive shell on the SDA
+
+● Available on all IU research supercomputers; load the module first:
+    ○ $ module load hpss
+
+● Start a session with `hsi`, then use in-session commands:
+    ○ `ls`, `cd`, `pwd`, `mkdir`, `put localfile`, `get remotefile`, `mv old new`,
+      `exit`
+
+● From Research Desktop (RED):
+    ○ Applications > Storage > Scholarly Data Archive
+HSI — interactive shell to the SDA
+● On-campus only; off-campus requires an exemption from
+  store-admin@iu.edu
+
+● Not PHI-safe: HSI does not encrypt in transit, use Globus or
+  SFTP for PHI
+
+● SDA deletions are permanent and irreversible
+HTAR — bundle many files to tape
+● HTAR bundles many local files into a single `.tar` archive
+  directly on the SDA
+    ○ no intermediate local archive needed
+● The right tool when you have many small files, which the SDA
+  handles poorly one by one
+● Load the module first: $ module load hpss
+● Create an archive from the current directory:
+    ○ $ htar -c -f my_archive.tar *
+● List contents: $ htar -tf my_archive.tar; extract: $ htar -x -f
+  my_archive.tar
+HTAR — bundle many files to tape
+● Limits (more restrictive than the SDA itself):
+    ○ max individual file size 68 GB; up to 1 million files per archive
+    ○ max directory path 154 characters; max file name 99
+      characters
+
+● On-campus only; not PHI-safe (use Globus or SFTP for off-
+  campus or PHI)
+SDA prep rules
+● Tape is unforgiving of many tiny files: bundle files under 1 MB into
+  `.tar` or `.zip` first
+
+● Use ASCII-only characters in paths and file names (0x20 to 0x7e);
+  rename anything with Unicode first
+
+● Archive at milestones: before submitting a paper, after a major
+  analysis, at phase changes
+SDA prep rules
+● Date your archive file names so you can keep updated versions and
+  find the latest
+
+● Keep a separate contents log: the SDA can't preview a `.tar` without
+  retrieving it
+
+● Delete redundant or superseded data from active file systems to stay
+  within quota
+Archiving files to the SDA
+● Choosing a transfer method
+
+● SCP & SFTP
+
+● Globus
+
+● SDA with HSI and HTAR
+
+● Archiving files to the SDA
+Archiving files to the SDA
+1. On Quartz, create a multi-gigabyte test file in your Slate directory:
+      $ cd /N/slate/username
+      $ dd if=/dev/urandom of=testfile.dat bs=1M count=2048
+1. Record a checksum so you can compare later:
+      $ sha256sum testfile.dat
+1. Send the file to the SDA over SFTP:
+      $ sftp username@sftp.sdarchive.iu.edu
+      in the session: `put testfile.dat`
+1. Rename the file on the SDA, still in the SFTP session, then `exit`:
+      rename testfile.dat testfile_2026-06-12.dat
+Archiving files to the SDA
+5.   Pull the renamed file back with Globus (https://globus.iu.edu/):
+     source `IURT - Scholarly Data Archive`, destination `IURT - Slate`
+     at `/N/slate/username/`
+     select `testfile_2026-06-12.dat`, then Start
+6.   Confirm the round trip matched by checksum:
+     $ sha256sum testfile_2026-06-12.dat
+     compare against the value from step 2
+7.   Clean up the temporary files:
+     on Quartz: $ rm testfile.dat testfile_2026-06-12.dat
+     in HSI or Globus: delete `testfile_2026-06-12.dat` from the SDA
+Reflection
+● You can now:
+  ○ Choose a transfer tool by matching size, source, and destination
+  ○ Copy between hosts with SCP and browse and transfer with SFTP
+  ○ Move large, recurring, and cloud transfers with Globus
+  ○ Archive to and retrieve from the SDA with HSI and HTAR
+● Next lesson: Module 4, Lesson 2 — Managing Resources & Best Practices
+● Be sure to complete the reflection for this lesson
+

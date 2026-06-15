@@ -1,0 +1,272 @@
+<div
+  id="dp-wrapper"
+  class="dp-wrapper"
+  data-header-class="dp-header dp-colored-headings variation-2"
+  data-nav-class="container-fluid dp-link-grid dp-link-grid-circle-right variation-2"
+  data-img-url="https://designtools.ciditools.com/css/images/banner_desert_sky.png"
+>
+  <!-- Shared design tokens: no border-radius anywhere; consistent card outline. -->
+  <style>
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card,
+    #dp-wrapper .btn,
+    #dp-wrapper .nav-link,
+    #dp-wrapper .dp-embed-wrapper iframe,
+    #dp-wrapper .dp-fc,
+    #dp-wrapper img { border-radius: 0 !important; }
+    #dp-wrapper .dp-card,
+    #dp-wrapper .card { border: 1px solid rgba(0, 0, 0, 0.175); }
+    /* DP's focus ring is dark red; use IU blue instead. */
+    #dp-wrapper .nav-link:focus,
+    #dp-wrapper .dp-panel-toggler:focus,
+    #dp-wrapper .btn:focus { outline-color: #006298 !important; }
+  </style>
+
+  <!-- ============================ HEADER (flat blue, race-car overlay bottom-right) ============================ -->
+  <header
+    class="dp-header dp-colored-headings variation-2 dp-bg text-start cp-bg-dp-secondary dp-bg-image dp-wcag-aaa text-light"
+    style="
+      padding: 40px 40px 44px;
+      min-height: 180px;
+      background: url('../assets/images/race-car.png') right bottom / auto 70% no-repeat, #006298;
+    "
+  >
+    <img class="dp-bg-image-src" style="display: none" role="presentation" src="../assets/images/race-car.png" alt="" loading="lazy" />
+    <h2 class="dp-heading text-start">
+      <span class="dp-header-pre text-start" style="background: none; font-size: 22px; padding-top: 0px; margin-left: 0px; padding-left: 0px">
+        <span class="dp-header-pre-1 text-start" style="color: #ffffff">Welcome to</span>
+      </span>
+      <span class="dp-header-title" style="color: #ffffff">HPC 101</span>
+    </h2>
+  </header>
+
+  <!-- ============================ ABOUT THIS COURSE ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 35px; margin-bottom: 35px">
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 18px">About This Course</h3>
+    <p>
+      Want to learn about High Performance Computing (HPC)? This course introduces the principles of HPC and helps you become an effective, efficient,
+      and conscientious consumer of IU HPC compute cycles and storage resources.
+    </p>
+    <p>
+      It should take you around two and a half to three hours to watch all of the video content. There are also short knowledge checks and quizzes
+      throughout the course, and most will take less than 15 minutes to complete.
+    </p>
+  </div>
+
+  <!-- ============================ MEET THE TEAM (denser than reference) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 35px; margin-bottom: 35px">
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 18px">Meet the Team</h3>
+    <div class="dp-column-container container-fluid">
+      <div class="row gy-3">
+        <div class="col-lg-2 col-md-3 col-sm-12 d-flex flex-row justify-content-center align-items-center">
+          <img
+            style="display: block; margin-left: auto; margin-right: auto; max-width: 120px; height: auto"
+            role="presentation"
+            src="https://files.ciditools.com/cidilabs/dp_icon_placeholder.jpg"
+            alt="Instructor photo placeholder"
+            loading="lazy"
+          />
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 d-flex flex-row align-items-center">
+          <div class="dp-column-liner w-100">
+            <h4 class="dp-text-bold" style="margin-bottom: 4px"><strong>Instructor Name</strong></h4>
+            <p style="margin-bottom: 0px">Title and department. One sentence on their role in the course.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row gy-3">
+        <div class="col-lg-2 col-md-3 col-sm-12 d-flex flex-row justify-content-center align-items-center">
+          <img
+            style="display: block; margin-left: auto; margin-right: auto; max-width: 120px; height: auto"
+            role="presentation"
+            src="https://files.ciditools.com/cidilabs/dp_icon_placeholder.jpg"
+            alt="Contributor photo placeholder"
+            loading="lazy"
+          />
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 d-flex flex-row align-items-center">
+          <div class="dp-column-liner w-100">
+            <h4 class="dp-text-bold" style="margin-bottom: 4px"><strong>Contributor Name</strong></h4>
+            <p style="margin-bottom: 0px">Title and department. One sentence on their role in the course.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row gy-3">
+        <div class="col-lg-2 col-md-3 col-sm-12 d-flex flex-row justify-content-center align-items-center">
+          <img
+            style="display: block; margin-left: auto; margin-right: auto; max-width: 120px; height: auto"
+            role="presentation"
+            src="https://files.ciditools.com/cidilabs/dp_icon_placeholder.jpg"
+            alt="Support contact photo placeholder"
+            loading="lazy"
+          />
+        </div>
+        <div class="col-lg-10 col-md-9 col-sm-12 d-flex flex-row align-items-center">
+          <div class="dp-column-liner w-100">
+            <h4 class="dp-text-bold" style="margin-bottom: 4px"><strong>Research Computing Support</strong></h4>
+            <p style="margin-bottom: 0px">UITS Research Technologies provides the systems and support behind this course.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ LEARNING OUTCOMES (cards, no radius) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 35px; margin-bottom: 18px">
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 8px">Learning Outcomes</h3>
+    <p>By the end of this course, you will be able to:</p>
+  </div>
+  <div class="dp-content-block dp-column-container container-fluid dp-margin-direction-tblr" style="margin-bottom: 35px">
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card h-100 dp-bg dp-card cp-bg-dp-secondary" style="background: #006298; border-radius: 0px">
+          <div class="card-body">
+            <h4 class="card-title dp-ignore-theme">Understand HPC Fundamentals</h4>
+            <p class="card-text">
+              Develop knowledge of what supercomputers are, how parallel computing works, and how HPC supports scientific research and AI.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card h-100 dp-bg cp-bg-dark dp-card" style="background: #1a4f6e; border-radius: 0px">
+          <div class="card-body">
+            <h4 class="card-title dp-ignore-theme">Access and Use IU's HPC Systems</h4>
+            <p class="card-text">Learn how to access IU systems, connect with SSH, and run workloads on research computing resources.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card h-100 dp-bg dp-card cp-bg-dp-secondary" style="background: #006298; border-radius: 0px">
+          <div class="card-body">
+            <h4 class="card-title dp-ignore-theme">Manage Storage and Research Data</h4>
+            <p class="card-text">Understand IU storage systems and data organization strategies for managing research data.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-12">
+        <div class="card h-100 dp-bg cp-bg-dark dp-card" style="background: #1a4f6e; border-radius: 0px">
+          <div class="card-body">
+            <h4 class="card-title dp-ignore-theme">Learn HPC Best Practices</h4>
+            <p class="card-text">Learn how to efficiently use compute and storage resources, transfer data, archive files, and get support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ COURSE RECOGNITION + BADGES (formatted like reference) ============================ -->
+  <div class="dp-content-block dp-margin-direction-tblr dp-padding-direction-tblr" style="margin-top: 35px; margin-bottom: 18px">
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 18px">Course Recognition</h3>
+    <p>
+      Learners who complete all required quizzes and activities will earn an HPC 101 completion badge recognizing foundational competency in IU's
+      research computing environment. Complete all four module badges to earn the <strong>HPC 101 Certified</strong> microcredential.
+    </p>
+    <p>You can jump to specific badge content using the links below.</p>
+  </div>
+  <div class="dp-content-block dp-margin-direction-tblr" style="margin-bottom: 35px">
+    <div class="dp-column-container container-fluid">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <p><img class="mx-auto d-block" src="https://badges.parchment.com/public/badges/AJBAP3JfRHioi9DXtWWxeg/image" alt="High Performance Computing Basics badge" width="360" height="270" loading="lazy" /></p>
+          <p style="text-align: center">
+            <a href="https://iu.badges.parchment.com/issuers/6a01fdada121bd1ca4eaaf28/badges/6a0df4896823b61c44262bdf/overview" target="_blank" rel="noopener"
+              ><strong><span style="font-size: 14pt">High Performance Computing Basics</span></strong></a
+            >
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <p><img class="mx-auto d-block" src="https://badges.parchment.com/public/badges/ol4LfC1wSguZWMUNDnoLlg/image" alt="Compute Resource Utilization badge" width="360" height="270" loading="lazy" /></p>
+          <p style="text-align: center">
+            <a href="https://iu.badges.parchment.com/issuers/6a01fdada121bd1ca4eaaf28/badges/6a0df69bc591939ef0fc49be/overview" target="_blank" rel="noopener"
+              ><strong><span style="font-size: 14pt">Compute Resource Utilization</span></strong></a
+            >
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <p><img class="mx-auto d-block" src="https://badges.parchment.com/public/badges/HkgXk3PdQ7OonVIq_u24_w/image" alt="Storage Systems Management badge" width="360" height="270" loading="lazy" /></p>
+          <p style="text-align: center">
+            <a href="https://iu.badges.parchment.com/issuers/6a01fdada121bd1ca4eaaf28/badges/6a0df6af6823b61c44262d67/overview" target="_blank" rel="noopener"
+              ><strong><span style="font-size: 14pt">Storage Systems Management</span></strong></a
+            >
+          </p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <p><img class="mx-auto d-block" src="https://badges.parchment.com/public/badges/LTi2kWHGSdqxCPR8tYzBiw/image" alt="Data Transfer and Best Practices badge" width="360" height="270" loading="lazy" /></p>
+          <p style="text-align: center">
+            <a href="https://iu.badges.parchment.com/issuers/6a01fdada121bd1ca4eaaf28/badges/6a0df6c16823b61c44262d81/overview" target="_blank" rel="noopener"
+              ><strong><span style="font-size: 14pt">Data Transfer &amp; Best Practices</span></strong></a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-lg-3 col-sm-12 d-flex flex-row justify-content-center align-items-center text-center dp-specify col-md-6"
+          style="margin: auto auto"
+          data-classes="col-lg-3 col-md-6 col-sm-12 d-flex flex-row justify-content-center align-items-center text-center"
+        >
+          <div class="dp-column-liner w-100" style="margin: auto auto">
+            <p><img class="mx-auto d-block" src="https://badges.parchment.com/public/badges/Y3MYT2ZfR3m_PvOkuj5QNw/image" alt="HPC 101 Certified Microcredential badge" width="360" height="270" loading="lazy" /></p>
+            <p style="text-align: center">
+              <a href="https://iu.badges.parchment.com/issuers/6a01fdada121bd1ca4eaaf28/badges/6a0df6d8c591939ef0fc4a07/overview" target="_blank" rel="noopener"
+                ><strong><span style="font-size: 14pt">HPC 101 Certified Microcredential</span></strong></a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================ WHAT YOU'LL DO (wrapped in light blue, gray header) ============================ -->
+  <div
+    class="dp-content-block cp-bg-dp-gray dp-bg dp-margin-direction-tblr dp-padding-direction-tblr"
+    style="margin-bottom: 0px; padding: 35px 25px; background: #cfe7f1"
+  >
+    <h3 class="dp-text-bold dp-margin-direction-tblr" style="margin-bottom: 12px"><strong>What You'll Do</strong></h3>
+    <p>HPC 101 is organized into four modules with multiple lessons each. Throughout the course, you will:</p>
+    <ul class="dp-more-space dp-margin-direction-tblr" style="list-style-type: none; font-size: 16px; margin-left: 20px" role="list">
+      <li role="listitem">
+        <i
+          class="dp-icon fas fa-film dp-i-size-med dp-i-shape-circle dp-i-border-mid dp-margin-direction-tblr dp-border-dir-all dp-border-style-solid cp-bg-dark cp-out-dark"
+          style="margin-right: 7px"
+          aria-hidden="true"
+          ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+        >
+        Watch interactive lecture videos (all approximately 10&ndash;15 minutes each)
+      </li>
+      <li class="dp-margin-direction-tblr" role="listitem">
+        <i
+          class="dp-icon fas fa-wrench dp-margin-direction-tblr dp-i-size-med dp-i-shape-circle dp-i-border-mid dp-border-dir-all dp-border-style-solid cp-bg-dark cp-out-dark"
+          style="margin-right: 7px"
+          aria-hidden="true"
+          ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+        >
+        Complete short knowledge checks and practice navigating HPC systems and workflows
+      </li>
+      <li class="dp-margin-direction-tblr" role="listitem">
+        <i class="dp-icon fas fa-desktop dp-i-shape-circle dp-i-size-med dp-i-border-mid cp-bg-dark cp-out-dark" aria-hidden="true"
+          ><span class="dp-icon-content" style="display: none">&nbsp;</span></i
+        >&nbsp; Apply HPC concepts to real-world research and computing scenarios
+      </li>
+    </ul>
+  </div>
+
+  <!-- ============================ FOOTER (one column, gray, Get Started button) ============================ -->
+  <div
+    class="dp-content-block dp-bg dp-margin-direction-tblr dp-padding-direction-tblr cp-bg-dark"
+    style="margin-top: 0px; padding: 35px 20px; background: #343a40; text-align: center"
+  >
+    <p class="dp-margin-direction-tblr" style="margin: 0px 0px 20px; font-size: 18px; color: #ffffff">Ready to get started?</p>
+    <p style="margin: 0px">
+      <a
+        class="btn btn-lg dp-course-link dp-border-dir-all dp-border-style-solid dp-padding-direction-tblr btn-dp-white cph-bg-dark"
+        style="border-width: 2px; border-radius: 0px; padding-left: 35px; padding-right: 35px"
+        title="Get Started"
+        href="#"
+        >Get Started</a
+      >
+    </p>
+  </div>
+</div>
