@@ -1,0 +1,7 @@
+#006298     #990000
+#343a40     #0e1825 243142 4c5a69
+#cfe7f1     #fffceb #f8efe2
+#1a4f6e     #5a0c0c
+#ffffff     #
+#fff        #ffffff
+#6fc3df     #ffd6db #ff636a
